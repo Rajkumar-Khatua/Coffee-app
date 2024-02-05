@@ -1,20 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SafeAreaView } from "react-native-safe-area-context";
+import StackNavigator from "./navigator/StackNavigator";
+import DetailsScreen from "./screens/DetailsScreen";
+import PaymentScreen from "./screens/PaymentScreen";
 
-export default function App() {
+const Stack = createNativeStackNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen
+            name="TabNavigator"
+            component={StackNavigator}
+            options={{ animation: "slide_from_bottom", headerShown: false }}
+          ></Stack.Screen>
+          <Stack.Screen
+            name="DetailsScreen"
+            component={DetailsScreen}
+            options={{ animation: "slide_from_bottom" }}
+          ></Stack.Screen>
+          <Stack.Screen
+            name="PaymentScreen"
+            component={PaymentScreen}
+            options={{ animation: "slide_from_bottom" }}
+          ></Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
